@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deteksi Lubang Jalan</title>
+</head>
+<body>
+    <h2>Upload Gambar Jalan</h2>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <input type="submit" value="Klasifikasikan">
+    </form>
+
+    {% if label %}
+        <h3>Hasil Prediksi: <b>{{ label }}</b></h3>
+
+        <h4>Gambar Asli:</h4>
+        <img src="data:image/png;base64,{{ original }}" width="256">
+
+        <h4>Brightness +20:</h4>
+        <img src="data:image/png;base64,{{ bright }}" width="256">
+
+        <h4>Grayscale (GLCM):</h4>
+        <img src="data:image/png;base64,{{ gray }}" width="256">
+
+        <h4>Fitur GLCM:</h4>
+        <ul>
+            <li>Contrast: {{ '%.4f' % features[0] }}</li>
+            <li>Dissimilarity: {{ '%.4f' % features[1] }}</li>
+            <li>Homogeneity: {{ '%.4f' % features[2] }}</li>
+            <li>Energy: {{ '%.4f' % features[3] }}</li>
+            <li>Correlation: {{ '%.4f' % features[4] }}</li>
+            <li>ASM: {{ '%.4f' % features[5] }}</li>
+        </ul>
+    {% endif %}
+</body>
+</html>
